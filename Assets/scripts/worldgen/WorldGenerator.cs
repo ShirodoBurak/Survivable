@@ -33,9 +33,7 @@ public class WorldGenerator : MonoBehaviour {
     int chunksize = 32;
     Vector2Int lastpos;
     private void Start() {
-        Vector2Int location = WorldCoordinatesToChunkCoordinates(Camera.main.transform.position);
-        lastpos = location;
-        GenerateByChunkCoordinate(location);
+
     }
     void Update() {
         if (Input.GetKeyDown(KeyCode.M)) {
@@ -54,8 +52,8 @@ public class WorldGenerator : MonoBehaviour {
         } else { }
     }
     public void GenerateByChunkCoordinate(Vector2Int pos) {
-        for (int i = -16; i < 16; i++) {
-            for (int j = -8; j < 8; j++) {
+        for (int i = -8; i < 8; i++) {
+            for (int j = -4; j < 4; j++) {
                 if (!loadedChunks.Contains(new Vector2Int(i + pos.x, j + pos.y))) {
                     loadedChunks.Add(new Vector2Int(i + pos.x, j + pos.y));
                     GenerateChunk(i + pos.x, j + pos.y);
@@ -83,6 +81,8 @@ public class WorldGenerator : MonoBehaviour {
                         }
                     }
                 }
+                // This section makes caves much less occusing in surfaces.
+                // Caves tend disappear as they are getting closer to surface level
                 // A value between 0 and 1
                 float surfaceincavityness = 0f;
                 float distance = Vector2Int.Distance(new Vector2Int(i, j), new Vector2Int(i, (int)h));
@@ -90,6 +90,7 @@ public class WorldGenerator : MonoBehaviour {
                     surfaceincavityness = 2 / distance;
                 }
                 if (j < h) {
+                    
                     if (cavity < .6f + surfaceincavityness) {
                         tm01.SetTile(new Vector3Int(i, j, 0), t0);
                     }
