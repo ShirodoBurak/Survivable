@@ -90,15 +90,15 @@ public class WorldHandler : MonoBehaviour {
         } else {
         }
     }
-    private void FixedUpdate() {
+    //private void FixedUpdate() {
         //if(Input.GetKeyDown(KeyCode.S)) {
-        List<Vector3Int> edgeTiles = lightingSystem.FindEdges();
+    //    List<Vector3Int> edgeTiles = lightingSystem.FindEdges();
         //Debug.Log("Hi, on lighting system. edgeTile list size : " + edgeTiles.Count);
-        foreach(var position in edgeTiles) {
+    //    foreach(var position in edgeTiles) {
             //mainTileMap.SetTile(position, Tile("grass"));
-        }
+    //    }
         //}
-    }
+    //}
     //<summary>
     // Generate chunks, add to cache and display on tilemaps.
     // Also, remove unused, distant chunks.
@@ -186,8 +186,8 @@ public class WorldHandler : MonoBehaviour {
     Vector3Int tilepos;
     // This function generates the view depending on the Camera viewport. 
     // Since it gets tilecache by chunks, instead of generating every tile
-    // we got with the chunk cache even if its not rendered, we only generate
-    // ones that "visible" to the player.
+    // even if its not required to be rendered, we only generate
+    // ones that are "probably visible" to the player.
     void GenerateView() {
         Vector3 min = Camera.main.ViewportToWorldPoint(new Vector3(-0.25f, -0.25f, 0));
         Vector3 max = Camera.main.ViewportToWorldPoint(new Vector3(1.25f, 1.25f, 0));
